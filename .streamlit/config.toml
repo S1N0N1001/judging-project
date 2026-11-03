@@ -1,0 +1,9 @@
+[server]
+address = "0.0.0.0"
+enableCORS = true
+enableXsrfProtection = true
+headless = true
+fileWatcherType = "none"
+
+[browser]
+gatherUsageStats = false
