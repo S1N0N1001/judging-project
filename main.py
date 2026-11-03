@@ -122,9 +122,11 @@ def judge_panel(token):
     version_key = f'version_{context}'
     if version_key not in st.session_state:
         st.session_state[version_key] = card['version'] if card else 0
+    st.caption('Нажмите поле критерия и выберите балл из списка. Счётчик заполнения обновляется после выбора.')
     scores = {}
     for k, c in event['criteria'].items():
-        value = st.number_input(c['title'], min_value=0, max_value=c['max'], value=card['scores'].get(k) if card else None, step=1, key=f'score_{context}_{k}', placeholder='Не оценено')
+        saved_value = card['scores'].get(k) if card else None
+        value = st.selectbox(c['title'], options=list(range(c['max'] + 1)), index=saved_value, key=f'score_{context}_{k}', placeholder='Выберите балл', width='stretch')
         if value is not None:
             scores[k] = value
             band = max(int(b) for b in c['ranges'] if int(b) <= value)
